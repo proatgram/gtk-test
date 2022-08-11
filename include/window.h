@@ -26,6 +26,11 @@ software.
 #include <gtkmm/button.h>
 #include <gtkmm/image.h>
 #include <gtkmm/settings.h>
+#include <gtkmm/grid.h>
+#include <gdkmm/pixbuf.h>
+#include <gtkmm/container.h>
+#include <gtkmm/box.h>
+#include <gtkmm/overlay.h>
 
 class window : public Gtk::Window {
     public:
@@ -34,5 +39,8 @@ class window : public Gtk::Window {
         void onButton1();
 
         Gtk::Button m_button1;
+        Gtk::Button m_button2;
+        Gtk::Grid m_grid;
+        Gtk::Overlay m_background;
     private:
 };

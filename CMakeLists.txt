@@ -8,6 +8,7 @@ DESCRIPTION "Test for GTK+ applications."
 LANGUAGES CXX)
 
 pkg_check_modules(GTKMM3 REQUIRED gtkmm-3.0)
+pkg_check_modules(GDKMM3 REQUIRED gdkmm-3.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
@@ -17,8 +18,8 @@ file(GLOB_RECURSE gtk_HEADERS "${CMAKE_SOURCE_DIR}/include/*.h}" "${CMAKE_SOURCE
 
 add_executable(gtk ${gtk_SOURCES} ${gtk_HEADERS})
 
-include_directories(AFTER SYSTEM ${GTKMM3_INCLUDE_DIRS})
+include_directories(AFTER SYSTEM ${GTKMM3_INCLUDE_DIRS} ${GDKMM3_INCLUDE_DIRS})
 
-target_link_libraries(gtk ${GTKMM3_LINK_LIBRARIES})
+target_link_libraries(gtk ${GTKMM3_LINK_LIBRARIES} ${GDKMM3_LINK_LIBRARIES})
 
 target_include_directories(gtk PUBLIC ${CMAKE_SOURCE_DIR}/include)

@@ -23,16 +23,35 @@ software.
 #include "window.h"
 
 window::window()  :
-    m_button1()
+    m_button1(),
+    m_button2(),
+    m_grid(),
+    m_background()
 {
     set_title("Test Application");
     set_default_size(240, 240);
     m_button1.signal_clicked().connect(sigc::mem_fun(*this, &window::onButton1));
-    Gtk::Image *im(Gtk::manage(new Gtk::Image("/home/thetimbrick/Pictures/Cat.jpg")));
+    Glib::RefPtr<Gdk::Pixbuf> buff(Gdk::Pixbuf::create_from_file("/home/thetimbrick/Pictures/pic.jpg", 24, 24, false));
+    Glib::RefPtr<Gdk::Pixbuf> back(Gdk::Pixbuf::create_from_file("/home/thetimbrick/Pictures/index.jpeg", 240, 240, false));
+    Gtk::Image* im(Gtk::manage(new Gtk::Image()));
+    Gtk::Image* background(Gtk::manage(new Gtk::Image()));
+    
+    im->set(buff);
+    background->set(back);
+    m_background.add(*background);
     m_button1.set_image(*im);
-    add(m_button1);
-    set_border_width(10);
-    m_button1.show();
+    m_grid.property_margin_top().set_value(6);
+    m_grid.property_margin_bottom().set_value(6);
+    m_grid.property_margin_left().set_value(6);
+    m_grid.property_margin_right().set_value(6);
+    m_grid.property_column_spacing().set_value(6);
+    m_grid.property_row_spacing().set_value(6);
+    m_grid.add(m_button1);
+    m_grid.add(m_button2);
+    m_background.add_overlay(m_grid);
+    add(m_background);
+    set_border_width(0);
+    m_background.show_all();
 }
 
 void window::onButton1() {
